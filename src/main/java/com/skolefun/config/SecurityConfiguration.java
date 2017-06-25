@@ -56,7 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/webjars/**").permitAll()
                 .antMatchers( "/swagger**").permitAll()
                 .antMatchers( "/api/user/**").permitAll()
-                .antMatchers("/api/**").hasAnyRole(Role.TEACHER.toString(), Role.PARENT.toString(), Role.STUDENT.toString())
+                .antMatchers("/api/**").permitAll()
+//                .antMatchers("/api/**").hasAnyRole(Role.TEACHER.toString(), Role.PARENT.toString(), Role.STUDENT.toString())
                 .anyRequest().authenticated()
                 ;
 
