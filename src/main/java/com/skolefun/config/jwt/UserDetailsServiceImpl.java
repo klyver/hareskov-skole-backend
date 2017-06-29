@@ -2,6 +2,8 @@ package com.skolefun.config.jwt;
 
 import com.skolefun.model.Role;
 import com.skolefun.model.User;
+import com.skolefun.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,19 +18,16 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-//    private UserRepository userRepository;
-//
-//    @Autowired
-//    public UserDetailsServiceImpl(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
+    private UserRepository userRepository;
+
+    @Autowired
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userRepository.findByUsername(username);
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.TEACHER);
-        User user = new User(username, "password", roles);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             return null;
         }
