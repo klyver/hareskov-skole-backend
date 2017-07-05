@@ -34,7 +34,7 @@ class NewsResource {
     @RequestMapping("/api/news")
     fun news(jwtTokenUserData: JwtTokenUserData) = MutableList(15, { getRandomNewsItem()})
 
-    @RequestMapping("/api/commercial")
+    @RequestMapping("/api/commercials")
     fun commercial(jwtTokenUserData: JwtTokenUserData) = MutableList(15, { getCommercial()})
 
 }
