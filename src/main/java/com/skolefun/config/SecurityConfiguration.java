@@ -53,12 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // don't create sessions
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers( "/webjars/**").permitAll()
-                .antMatchers( "/swagger**").permitAll()
                 .antMatchers( "/api/user/**").permitAll()
 //                .antMatchers("/api/**").permitAll()
                 .antMatchers("/api/**").hasAnyRole(Role.TEACHER.toString(), Role.PARENT.toString(), Role.STUDENT.toString())
-                .anyRequest().authenticated()
                 ;
 
         // Custom JWT based security filter

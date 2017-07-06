@@ -2,6 +2,7 @@ package com.skolefun.api
 
 import com.skolefun.config.jwt.JwtTokenUserData
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import java.util.Random
 
@@ -31,10 +32,10 @@ data class CommercialItem(val dialogTitle: String,
 @RestController
 class NewsResource {
 
-    @RequestMapping("/api/news")
+    @RequestMapping("/api/news", method = arrayOf(RequestMethod.GET))
     fun news(jwtTokenUserData: JwtTokenUserData) = MutableList(15, { getRandomNewsItem()})
 
-    @RequestMapping("/api/commercials")
+    @RequestMapping("/api/commercial", method = arrayOf(RequestMethod.GET))
     fun commercial(jwtTokenUserData: JwtTokenUserData) = MutableList(15, { getCommercial()})
 
 }
