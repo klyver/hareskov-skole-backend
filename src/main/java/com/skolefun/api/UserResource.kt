@@ -29,19 +29,19 @@ class UserResource(
 
 
     @RequestMapping("/api/user", method = arrayOf(RequestMethod.POST))
-    fun createUser(@RequestBody createUserData: CreateUserData): ResponseEntity<String> {
+    fun createUser(@RequestBody createUserData: CreateUserData): ResponseEntity<Void> {
         val user = User(createUserData.username, passwordEncoder.encode(createUserData.password), hashSetOf(createUserData.role), createUserData.grade, createUserData.classLetter)
         userRepository.save(user)
         val token = jwtTokenUtil.generateToken(JwtTokenUserData(1L, createUserData.username, setOf(createUserData.role)))
-        return ResponseEntity.ok().header("Authentication", token).body(token)
+        return ResponseEntity.ok().header("Authentication", token).body(null)
     }
 
     @RequestMapping("/api/user/login", method = arrayOf(RequestMethod.POST))
-    fun login(@RequestBody credentials: Credentials): ResponseEntity<String> {
+    fun login(@RequestBody credentials: Credentials): ResponseEntity<Void> {
         authenticationManager.authenticate(UsernamePasswordAuthenticationToken(credentials.username, credentials.password))
         val jwtTokenUserData = userDetailsService.createFromUsername(credentials.username)
         val token = jwtTokenUtil.generateToken(jwtTokenUserData)
-        return ResponseEntity.ok().header("Authentication", token).body(token)
+        return ResponseEntity.ok().header("Authentication", token).body(null)
     }
 
 
