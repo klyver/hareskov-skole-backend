@@ -1,6 +1,7 @@
 package com.skolefun.api
 
 import com.skolefun.config.jwt.JwtTokenUserData
+import io.swagger.annotations.ApiModelProperty
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -10,7 +11,7 @@ enum class NewsItemType {
     ARTICLE, COMMERCIAL
 }
 
-data class NewsItem(val title: String,
+data class NewsItem(@ApiModelProperty(required = true) val title: String,
                     val mainText: String,
                     val feedText: String,
                     val picture: String,
