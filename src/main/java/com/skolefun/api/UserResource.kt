@@ -33,7 +33,7 @@ class UserResource(
         val user = com.skolefun.model.User(createUserData.username, passwordEncoder.encode(createUserData.password), hashSetOf(createUserData.role), createUserData.grade, createUserData.classLetter)
         userRepository.save(user)
         val token = jwtTokenUtil.generateToken(JwtTokenUserData(1L, createUserData.username, setOf(createUserData.role)))
-        return ResponseEntity.ok().header("Authentication", token).body(getMockUser(token))
+        return ResponseEntity.ok().header("Authentication", token).body(Mock.user())
     }
 
     @RequestMapping("/api/user/login", method = arrayOf(RequestMethod.POST))
@@ -41,37 +41,10 @@ class UserResource(
         authenticationManager.authenticate(UsernamePasswordAuthenticationToken(credentials.username, credentials.password))
         val jwtTokenUserData = userDetailsService.createFromUsername(credentials.username)
         val token = jwtTokenUtil.generateToken(jwtTokenUserData)
-        return ResponseEntity.ok().header("Authentication", token).body(getMockUser(token))
+        return ResponseEntity.ok().header("Authentication", token).body(Mock.user())
     }
 
-    fun getMockUser(token: String) = com.skolefun.api.User(
-            "Lille Ib",
-            UserType.STUDENT,
-            Environment(
-                    "Hareskov skole",
-                    getMockGroupd(),
-                    EnvironmentType.SCHOOL,
-                    300,
-                    randomPicture(),
-                    randomPicture(),
-                    "#e60000",
-                    "#b30000",
-                    "#66ff66"
-            ),
-            listOf()
-    )
 
-    fun getMockGroupd() = listOf<Group>(
-            Group("ABCVærksted", true, true),
-            Group("Kantine", true, true),
-            Group("3C", false, true)
-    )
 
-    fun randomPicture() =
-            listOf(
-                    "http://hareskovskole.mrburns.webhot.dk/billeder/7C_small.JPG",
-                    "http://hareskovskole.mrburns.webhot.dk/billeder/Haandbold2015_small.jpg",
-                    "http://hareskovskole.mrburns.webhot.dk/haresk4.jpg"
-            )[Random().nextInt(3)]
 
 }
