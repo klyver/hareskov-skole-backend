@@ -18,7 +18,7 @@ class MessageResource {
     fun messages() = Mock.messages()
 
     @RequestMapping("/api/messages", method = arrayOf(RequestMethod.POST))
-    fun messages(createMessage: CreateMessage):Unit {}
+    fun messages(createMessage: CreateMessage) = Mock.messages()
 
 
 

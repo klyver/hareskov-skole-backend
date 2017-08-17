@@ -14,6 +14,6 @@ class PaymentResource {
     fun payments() = Mock.payments()
 
     @RequestMapping("/api/payments", method = arrayOf(RequestMethod.POST))
-    fun createPayment(createPayment: CreatePayment): Unit {}
+    fun createPayment(createPayment: CreatePayment) = Mock.payments()
 
 }
